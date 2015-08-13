@@ -13,7 +13,8 @@ object WebSocket {
   def observe(serverUri: URI,
     draft: Draft,
     headers: Map[String, String] = Map.empty[String, String],
-    connectionTimeout: Int = 0): Observable[SocketMessage] =
+    connectionTimeout: Int = 0)
+             (transform: WebSocketClient => Unit = ws => ()): Observable[SocketMessage] =
     Observable.create[SocketMessage] { observer ⇒
       val socket = new WebSocketClient(serverUri, draft, mapAsJavaMapConverter(headers).asJava, connectionTimeout) {
         override def onError(ex: Exception): Unit = observer.onError(ex)
@@ -24,6 +25,8 @@ object WebSocket {
         }
         override def onOpen(handshakedata: ServerHandshake): Unit = observer.onNext(Open(handshakedata))
       }
+
+      transform(socket)
 
       socket.connectBlocking()
 
