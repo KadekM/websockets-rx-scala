@@ -5,13 +5,13 @@ import java.net.URI
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.drafts.Draft
 import org.java_websocket.handshake.ServerHandshake
-import rx.lang.scala.{Observable, Subject}
+import rx.lang.scala.{ Observable, Subject }
 import scala.collection.JavaConverters._
 
 class RxWebSocket(serverUri: URI,
-                  draft: Draft,
-                  headers: Map[String, String] = Map.empty[String, String],
-                  connectionTimeout: Int = 0) extends WebSocketClient(serverUri, draft, mapAsJavaMapConverter(headers).asJava, connectionTimeout) {
+    draft: Draft,
+    headers: Map[String, String] = Map.empty[String, String],
+    connectionTimeout: Int = 0) extends WebSocketClient(serverUri, draft, mapAsJavaMapConverter(headers).asJava, connectionTimeout) {
 
   private val _events = Subject[SocketMessage]()
   val events: Observable[SocketMessage] = _events
