@@ -1,4 +1,4 @@
-name := "websockets-rx-scala"
+name := "websockets-scala-rx"
 
 licenses += ("Apache-2.0", url("https://www.apache.org/licenses/LICENSE-2.0.html"))
 
