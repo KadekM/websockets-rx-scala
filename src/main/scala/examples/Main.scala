@@ -23,7 +23,6 @@ object Main {
     last.unsubscribe()
     // closed
 
-    /
     val rx = new RxWebSocket(new URI("ws://echo.websocket.org"), new Draft_17)
     val subscription = rx.events.subscribe(x => println(x))
 
